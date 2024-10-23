@@ -110,6 +110,7 @@ exports.resetPassword = async( req ,res ) => {
         }
 
         user.password = tempPassword ;
+        user.token = null ;
         user.save() ;
         res.status(200).json({
             status:true,
