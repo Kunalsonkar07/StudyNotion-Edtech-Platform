@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { IoMdEyeOff , IoMdEye } from "react-icons/io";
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { resetPassword } from '../services/operations/authAPI';
 // import { resetPassword } from '../../server/controllers/ResetPassword';
@@ -15,7 +15,7 @@ const UpdatePassword = () => {
     const [ showpassword , setshowpassword ] = useState(false) ;
     const [ showConfirmpassword , setshowConfirmpassword ] = useState(false) ;
     const { loading } = useSelector( (state) => state.auth) ;
-
+    
     const [formdata, setformdata] = useState({ password: "", confirmPassword: "" });
 
     const handleOnchange = (e) =>{
@@ -27,13 +27,13 @@ const UpdatePassword = () => {
 
     const { password , confirmPassword } = formdata ;
     
-
+    const navigate = useNavigate() ;
     const Handleonsubmit = (e) => {
         e.preventDefault() ;
 
         const token = location.pathname.split("/").at(-1) ;
         dispatch( resetPassword( password , confirmPassword , token ) ) ;
-
+        navigate("/login") ;
     }
 
 
