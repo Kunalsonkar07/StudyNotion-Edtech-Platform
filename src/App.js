@@ -10,6 +10,7 @@ import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import ForgetPassword from "./Pages/ForgetPassword";
 import UpdatePassword from "./Pages/UpdatePassword";
+import VerifyEmail from "./Pages/VerifyEmail";
 
 
 
@@ -28,7 +29,7 @@ const App = () => {
             <Route path="/signup" element={<Signup/>}/>
             <Route path="/update-password/:id" element={<UpdatePassword/>}/>
             <Route path="/dashboard" element={<About></About>} ></Route>
-            <Route path="/verify-email "></Route>
+            <Route path="/verify-email" element={<VerifyEmail></VerifyEmail>}></Route>
         </Routes>
     </div>
   );

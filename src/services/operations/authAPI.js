@@ -8,7 +8,7 @@ import { setUser } from "../../slices/profileSlice";
 import e from "cors";
 
 const { RESETPASSTOKEN_API
-     , RESETPASSWORD_API } = endpoints ;
+     , RESETPASSWORD_API , SENDOTP_API , SIGNUP_API } = endpoints ;
 const { LOGIN_API } = endpoints ;
 // console.log(RESETPASSTOKEN_API) ;
 
@@ -23,12 +23,15 @@ export function sendOtp(email, navigate) {
         })
        
   
-        if (!response?.data?.success) {
-          throw new Error(response.data.message)
+        if (!response?.success) {
+            toast.error(response?.message) 
+        //   throw new Error(response?.message);
         }
-  
-        toast.success("OTP Sent Successfully")
-        navigate("/verify-email")
+        else {
+
+            toast.success("OTP Sent Successfully")
+            navigate("/verify-email")
+        }
       } catch (error) {
         console.log("SENDOTP API ERROR............", error)
         toast.error("Could Not Send OTP")
@@ -62,10 +65,10 @@ export function signUp(
           otp,
         })
   
-        console.log("SIGNUP API RESPONSE............", response)
+        // console.log("SIGNUP API RESPONSE............", response)
   
-        if (!response.data.success) {
-          throw new Error(response.data.message)
+        if (!response?.success) {
+          throw new Error(response?.message)
         }
         toast.success("Signup Successful")
         navigate("/login")
@@ -75,7 +78,7 @@ export function signUp(
         navigate("/signup")
       }
       dispatch(setLoading(false))
-      toast.dismiss(toastId)
+
     }
   }
 

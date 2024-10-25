@@ -9,13 +9,13 @@ import { useNavigate } from "react-router-dom";
 
 function VerifyEmail() {
   const [otp, setOtp] = useState("");
-  const { signupData, loading } = useSelector((state) => state.auth);
+  const { SignupData, loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     // Only allow access of this route when user has filled the signup form
-    if (!signupData) {
+    if (!SignupData) {
       navigate("/signup");
     }
 
@@ -30,10 +30,10 @@ function VerifyEmail() {
       email,
       password,
       confirmPassword,
-    } = signupData;
+    } = SignupData;
 
     dispatch(
-      signUp(
+    signUp(
         accountType,
         firstName,
         lastName,

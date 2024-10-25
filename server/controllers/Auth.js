@@ -12,14 +12,14 @@ exports.Sendotp = async( req , res ) => {
     try{
         const { email } = req.body ;
         
-        // const user = await User.findOne({email});
+        const user = await User.findOne({email});
     
-        // if( !user ){
-        //     return res.status(401).json({
-        //         success: false ,
-        //         message : "Use" ,
-        //     })
-        // }
+        if( user ){
+            return res.status(401).json({
+                success: false ,
+                message : "User already exist" ,
+            })
+        }
             let otp = otpGenerator.generate(6, { 
                 upperCaseAlphabets: false,
                 lowerCaseAlphabets: false ,
@@ -75,7 +75,7 @@ exports.Sendotp = async( req , res ) => {
 exports.Signup = async( req , res ) => {
     try {
         const { firstName , lastName , accountType , otp  , email 
-                , password , confirmpassword , contactNumber  } = req.body ;
+                , password , confirmpassword   } = req.body ;
 
         // ye check karega nahi keya tha 
         if (

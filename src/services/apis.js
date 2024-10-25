@@ -1,23 +1,15 @@
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-// console.log("hello");
-// console.log(BASE_URL);
-
-// const REACT_APP_BASE_URL = "http://localhost:4000/api/v1"
-// console.log(REACT_APP_BASE_URL)
 
 export const categories = {
   CATEGORIES_API: `${BASE_URL}/category/showAllcategory`,
   
 };
 
-// // console.log(categories.CATEGORIES_API);
-// const BASE_URL = "https://localhost:4000/api/v1"
 
-// AUTH ENDPOINTS
 export const endpoints = {
   SENDOTP_API: BASE_URL + "/auth/sendotp",
-  SIGNUP_API: BASE_URL + "/auth/signup",
+  SIGNUP_API: BASE_URL + "/auth/createAccount",
   LOGIN_API: BASE_URL + "/auth/Login",
   RESETPASSTOKEN_API: `${BASE_URL}/auth/resetpasswordtoken`,
   RESETPASSWORD_API: BASE_URL + "/auth/reset-password",

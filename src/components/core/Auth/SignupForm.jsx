@@ -4,11 +4,11 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
-// import { sendOtp } from "../../../services/operations/authAPI"
-// import { setSignupData } from "../../../slices/authSlice"
+import { sendOtp, signUp } from "../../../services/operations/authAPI"
+import { setSignupData } from "../../../slices/authSlice"
 import { ACCOUNT_TYPE } from "../../../utils/constant"
 import Tab from "../../common/Tab"
-import { sendOtp, signUp } from "../../../services/operations/authAPI"
+// import { sendOtp, signUp  } from "../../../services/operations/authAPI"
 
 function SignupForm() {
   const navigate = useNavigate()
@@ -50,9 +50,13 @@ function SignupForm() {
       accountType,
     }
 
+
+
+    dispatch(setSignupData(signupData))
+
     dispatch(sendOtp(formData.email, navigate))
+    // dispatch(signUp(signupData))
     
-    dispatch(signUp(signupData))
 
     // Reset
     setFormData({
@@ -92,6 +96,7 @@ function SignupForm() {
             </p>
             <input
               required
+              autoComplete="on"
               type="text"
               name="firstName"
               value={firstName}
@@ -109,6 +114,7 @@ function SignupForm() {
             </p>
             <input
               required
+              autoComplete="on"
               type="text"
               name="lastName"
               value={lastName}
@@ -127,6 +133,7 @@ function SignupForm() {
           </p>
           <input
             required
+            autoComplete="on"
             type="text"
             name="email"
             value={email}
@@ -145,6 +152,7 @@ function SignupForm() {
             </p>
             <input
               required
+              autoComplete="on"
               type={showPassword ? "text" : "password"}
               name="password"
               value={password}
@@ -175,6 +183,7 @@ function SignupForm() {
               type={showConfirmPassword ? "text" : "password"}
               name="confirmPassword"
               value={confirmPassword}
+              autoComplete="on"
               onChange={handleOnChange}
               placeholder="Confirm Password"
               style={{
@@ -196,6 +205,7 @@ function SignupForm() {
         </div>
         <button
           type="submit"
+        
           className="mt-6 rounded-[8px] font-bold bg-yellow-50 py-[8px] px-[12px]  text-richblack-900"
         >
           Create Account
