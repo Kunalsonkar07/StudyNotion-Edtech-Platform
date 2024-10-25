@@ -3,11 +3,12 @@ import Logo from '../assets/Logo/Logo-Full-Light.png'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { BsCartDash } from "react-icons/bs";
-import profileSection from './profileSection';
+// import { profileSection } from './profileSection';
 import { apiconnector } from '../services/apiconnector'
 import {categories}  from '../services/apis'
 import { useEffect } from 'react';
 import { IoIosArrowDropdown  } from "react-icons/io";
+// import profilen from './ProfileSection';
 
 const Navbar = () => {
 
@@ -132,7 +133,7 @@ const Navbar = () => {
             
             {
                 token !== null && (
-                    <profileSection></profileSection>
+                    <div>dashboard</div>
                 )
             }
 

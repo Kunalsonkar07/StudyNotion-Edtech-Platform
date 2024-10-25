@@ -1,20 +1,21 @@
 import { useState } from "react"
 import { toast } from "react-hot-toast"
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
-// import { useDispatch } from "react-redux"
-// import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
 // import { sendOtp } from "../../../services/operations/authAPI"
 // import { setSignupData } from "../../../slices/authSlice"
-// import { ACCOUNT_TYPE } from "../../../utils/constants"
-// import Tab from "../../common/Tab"
+import { ACCOUNT_TYPE } from "../../../utils/constant"
+import Tab from "../../common/Tab"
+import { sendOtp, signUp } from "../../../services/operations/authAPI"
 
 function SignupForm() {
-  // const navigate = useNavigate()
-  // const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   // student or instructor
-  const [accountType, setAccountType] = useState("INSTRUCTOR")
+  const [accountType, setAccountType] = useState(ACCOUNT_TYPE.STUDENT)
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -29,7 +30,6 @@ function SignupForm() {
 
   const { firstName, lastName, email, password, confirmPassword } = formData
 
-  // Handle input fields, when some value changes
   const handleOnChange = (e) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -50,11 +50,9 @@ function SignupForm() {
       accountType,
     }
 
-    // Setting signup data to state
-    // // To be used after otp verification
-    // dispatch(setSignupData(signupData))
-    // // Send OTP to user for verification
-    // dispatch(sendOtp(formData.email, navigate))
+    dispatch(sendOtp(formData.email, navigate))
+    
+    dispatch(signUp(signupData))
 
     // Reset
     setFormData({
@@ -64,17 +62,30 @@ function SignupForm() {
       password: "",
       confirmPassword: "",
     })
-    setAccountType("STUDENT")
+    setAccountType(ACCOUNT_TYPE.STUDENT)
   }
 
+  // data to pass to Tab component
+  const tabData = [
+    {
+      id: 1,
+      tabName: "Student",
+      type: ACCOUNT_TYPE.STUDENT,
+    },
+    {
+      id: 2,
+      tabName: "Instructor",
+      type: ACCOUNT_TYPE.INSTRUCTOR,
+    },
+  ]
 
   return (
-    <div>
+    <div className="">
       {/* Tab */}
-      {/* <Tab tabData={tabData} field={accountType} setField={setAccountType} /> */}
+      <Tab tabData={tabData} field={accountType} setField={setAccountType} />
       {/* Form */}
-      <form onSubmit={handleOnSubmit} className="flex w-full flex-col gap-y-4 md:w-full p-10 mt-10 mx-auto border-2 border-white">
-        <div className="flex gap-x-4 md:flex-row flex-col">
+      <form onSubmit={handleOnSubmit} className="flex w-full flex-col gap-y-4">
+        <div className="flex gap-x-4 md:flex-row flex-col gap-y-3">
           <label>
             <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
               First Name <sup className="text-pink-200">*</sup>
@@ -127,7 +138,7 @@ function SignupForm() {
             className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] text-richblack-5"
           />
         </label>
-        <div className="flex gap-x-4 md:flex-row flex-col">
+        <div className="flex gap-x-4 md:flex-row flex-col gap-y-3">
           <label className="relative">
             <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
               Create Password <sup className="text-pink-200">*</sup>
@@ -169,7 +180,7 @@ function SignupForm() {
               style={{
                 boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
               }}
-              className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-10 text-richblack-5"
+              className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-10 text-richblack-5 "
             />
             <span
               onClick={() => setShowConfirmPassword((prev) => !prev)}
@@ -185,7 +196,7 @@ function SignupForm() {
         </div>
         <button
           type="submit"
-          className="mt-6 rounded-[8px]  bg-yellow-50 py-[8px] px-[12px] font-bold text-richblack-900"
+          className="mt-6 rounded-[8px] font-bold bg-yellow-50 py-[8px] px-[12px]  text-richblack-900"
         >
           Create Account
         </button>

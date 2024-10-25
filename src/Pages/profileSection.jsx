@@ -1,9 +1,10 @@
 import React from 'react'
 
-const profileSection = () => {
+const profilen = () => {
   return (
-    <div>profileSection</div>
+    <div className='text-white'
+    >profileSection</div>
   )
 }
 
-export default profileSection
+export default profilen ;

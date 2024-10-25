@@ -13,6 +13,72 @@ const { LOGIN_API } = endpoints ;
 // console.log(RESETPASSTOKEN_API) ;
 
 
+export function sendOtp(email, navigate) {
+    return async (dispatch) => {
+      dispatch(setLoading(true))
+      try {
+        const response = await apiconnector("POST", SENDOTP_API, {
+          email,
+          checkUserPresent: true,
+        })
+       
+  
+        if (!response?.data?.success) {
+          throw new Error(response.data.message)
+        }
+  
+        toast.success("OTP Sent Successfully")
+        navigate("/verify-email")
+      } catch (error) {
+        console.log("SENDOTP API ERROR............", error)
+        toast.error("Could Not Send OTP")
+      }
+      dispatch(setLoading(false))
+    }
+  }
+
+
+export function signUp(
+    accountType,
+    firstName,
+    lastName,
+    email,
+    password,
+    confirmPassword,
+    otp,
+    navigate
+  ) {
+    return async (dispatch) => {
+      
+      dispatch(setLoading(true))
+      try {
+        const response = await apiconnector("POST", SIGNUP_API, {
+          accountType,
+          firstName,
+          lastName,
+          email,
+          password,
+          confirmPassword,
+          otp,
+        })
+  
+        console.log("SIGNUP API RESPONSE............", response)
+  
+        if (!response.data.success) {
+          throw new Error(response.data.message)
+        }
+        toast.success("Signup Successful")
+        navigate("/login")
+      } catch (error) {
+        console.log("SIGNUP API ERROR............", error)
+        toast.error("Signup Failed")
+        navigate("/signup")
+      }
+      dispatch(setLoading(false))
+      toast.dismiss(toastId)
+    }
+  }
+
 
 export  function getpasswordResetToken( email , setEmailSet ){
 
@@ -76,9 +142,9 @@ export function loginuser( email , password , navigate ){
             const response = await apiconnector('POST' , LOGIN_API , 
                 { email , password })
             
-                console.log(response) ;
-                console.log(response?.token) ;
-                // dispatch(setToken(response?.token))
+                // console.log(response) ;
+                // console.log(response?.token) ;
+                dispatch(setToken(response?.token))
                 // console.log("hello");
 
                 const userImage = response?.user?.image
@@ -89,10 +155,11 @@ export function loginuser( email , password , navigate ){
                 // console.log(userImage)
                 // console.log("hello");
                 dispatch(setUser({ ...response.data?.user, image: userImage }))
+                // console.log(JSON.stringify(response?.token))
                 
-                
-                localStorage.setItem("token", JSON.stringify(response.data?.token))
-                localStorage.setItem("user", JSON.stringify(response.data?.user))
+                localStorage.setItem("token", JSON.stringify(response?.token))
+                localStorage.setItem("user", JSON.stringify(response?.user))
+                localStorage.setItem("kunal", JSON.stringify("sonkar") ) 
                 toast.success("Login Successfull") ;
                 navigate("/dashboard") ;
         } catch (error) {

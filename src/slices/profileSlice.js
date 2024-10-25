@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     user:null ,
+    ACCOUNT_TYPE : "STUDENT"
 }
 
 const profileSlice = createSlice({
