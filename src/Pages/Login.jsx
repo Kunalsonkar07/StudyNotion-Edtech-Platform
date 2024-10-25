@@ -1,8 +1,16 @@
 import loginImg from "../assets/Images/login.webp"
 import Template from "../components/core/Auth/Template"
-
+import { UseSelector, useSelector } from "react-redux"
 const Login = () => {
+  
+  const { loading } = useSelector( (state) => state.auth ) ;
+
   return (
+
+    loading ? (
+      <div>loading.....</div>
+    ) : 
+    ( 
     <Template
       title="Welcome Back"
       description1="Build skills for today, tomorrow, and beyond."
@@ -10,6 +18,7 @@ const Login = () => {
       image={loginImg}
       formType="login"
     />
+    )
   )
 }
 

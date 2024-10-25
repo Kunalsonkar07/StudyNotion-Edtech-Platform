@@ -2,12 +2,15 @@ import { useState } from "react"
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
 import { useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
+import { UseSelector } from "react-redux"
+import { loginuser } from "../../../services/operations/authAPI"
 
 // import { login } from "../../../services/operations/authAPI"
 
 function LoginForm() {
-  // const navigate = useNavigate()
-  // const dispatch = useDispatch()
+  const navigate = useNavigate()
+  // const { loading } = useSelector( (state) => state.auth ) ;
+  const dispatch = useDispatch()
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -26,7 +29,8 @@ function LoginForm() {
 
   const handleOnSubmit = (e) => {
     e.preventDefault()
-    dispatch(login(email, password, navigate))
+    dispatch(loginuser(email, password , navigate ))
+    // navigate('/dashboard') 
   }
 
   return (
@@ -61,6 +65,7 @@ function LoginForm() {
           type={showPassword ? "text" : "password"}
           name="password"
           value={password}
+          autoComplete="on"
           onChange={handleOnChange}
           placeholder="Enter Password"
           style={{
@@ -88,10 +93,13 @@ function LoginForm() {
         type="submit"
         className="mt-6 rounded-[8px] bg-yellow-50 py-[8px] px-[12px] font-bold text-richblack-900"
       >
-        Sign In
+        Log In
       </button>
     </form>
   )
 }
 
 export default LoginForm
+
+
+

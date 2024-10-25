@@ -9,6 +9,7 @@ const { auth , isStudent, isInstructor ,isAdmin } = require("../middlewares/auth
 router.post("/createAccount", Signup );
 router.post("/sendotp", Sendotp  );
 router.post("/Login" , Login);
+// router.post("/dashboard" , ) ;
 // router.post("/isstudent", auth , isStudent ) ;
 // router.post("/isinstructor", auth , isInstructor ) ;
 // router.post("/isadmin", auth , isAdmin ) ;
