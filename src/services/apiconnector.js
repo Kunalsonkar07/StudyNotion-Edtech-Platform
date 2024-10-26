@@ -16,15 +16,18 @@ export const apiconnector = async ( method , url, bodyData = null,
     const options = {
         method,
         headers: {
-            'Content-Type': 'application/json',
             ...headers, // Merge with provided headers
+            'Content-Type': 'application/json',
         },
     };
 
     // Add body data if present and method is not GET
-    if (bodyData && method !== 'GET') {
-        options.body = JSON.stringify(bodyData);
+    if (bodyData ) {
+        options.body = bodyData ;
     }
+    // if (bodyData && method !== 'GET') {
+    //     options.body = JSON.stringify(bodyData);
+    // }
 
     const response = await fetch(url, options);
 

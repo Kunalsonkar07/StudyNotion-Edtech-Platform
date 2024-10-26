@@ -145,8 +145,11 @@ export function loginuser( email , password , navigate ){
             const response = await apiconnector('POST' , LOGIN_API , 
                 { email , password })
             
-                // console.log(response) ;
-                // console.log(response?.token) ;
+                
+                if ( !response?.token ){
+                  throw new Error ("Something went wrong")
+                }
+
                 dispatch(setToken(response?.token))
                 // console.log("hello");
 
@@ -155,10 +158,10 @@ export function loginuser( email , password , navigate ){
                 : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data?.user.firstName}`
 
 
-                // console.log(userImage)
+                console.log( response ) ;
                 // console.log("hello");
                 dispatch(setUser({ ...response.data?.user, image: userImage }))
-                // console.log(JSON.stringify(response?.token))
+                console.log(JSON.stringify(response?.token))
                 
                 localStorage.setItem("token", JSON.stringify(response?.token))
                 localStorage.setItem("user", JSON.stringify(response?.user))

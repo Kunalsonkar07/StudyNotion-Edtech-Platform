@@ -13,6 +13,7 @@ const ratingRoutes = require("./routes/Rating");
 const userRoutes = require("./routes/User");
 const categoryRoutes = require("./routes/Category");
 const passwordRoutes = require("./routes/password");
+const contactRoutes = require("./routes/Contact") ;
 
 const { connect } = require("./config/database");
 const cookieparser = require("cookie-parser");
@@ -38,13 +39,14 @@ app.use(
 )
 
 
-app.use("/api/v1/auth" ,userRoutes);
+app.use("/api/v1/auth" , userRoutes);
 app.use("/api/v1/course" ,courseRoutes);
-app.use("/api/v1/rating" ,ratingRoutes );
-app.use("/api/v1/profile" ,profileRoutes);
+app.use("/api/v1/rating" , ratingRoutes );
+app.use("/api/v1/profile" , profileRoutes);
 
-app.use("/api/v1/category",categoryRoutes);
-app.use("/api/v1/auth",passwordRoutes );
+app.use("/api/v1/category", categoryRoutes);
+app.use("/api/v1/auth", passwordRoutes );
+app.use("/api/v1/reach", contactRoutes );
 
 app.get( "/" , (req ,res) =>{
     return res.status(200).json({
