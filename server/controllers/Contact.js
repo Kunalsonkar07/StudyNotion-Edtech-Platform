@@ -4,15 +4,15 @@ const User = require("../models/User");
 
 exports.contactUs = async( req ,res ) => {
     try {
-        const { fristname ,lastname , contactnumber , message, email ,userid} = req.body ;
-        if ( fristname || lastname || contactnumber || message || email ){
+        const { firstname ,lastname , phoneNo , message, email } = req.body ;
+        if ( !firstname || !lastname || !phoneNo || !message || !email ){
             return res.status(400).json({
                 status:false,
-                message:"fill all the required details"
+                message:"fill all the required feilds"
             })
         }
 
-        const user = await User.findOne({userid});
+        const user = await User.findOne({email});
         if ( !user ){
             return res.status(400).json({
                 status:false,
@@ -21,8 +21,8 @@ exports.contactUs = async( req ,res ) => {
         }
         
         try {
-            await mailsender ( process.env.MAIL_USER , `${fristname} contacted U` , `${fristname} 
-                                                ${lastname} \n ${contactnumber} \n ${message}` );
+            await mailsender ( process.env.MAIL_USER , `${firstname} contacted U` , `${firstname} 
+                                                ${lastname} \n ${phoneNo} \n ${message}` );
         } catch (error) {
             return res.status(400).json({
                 status:false,
@@ -41,6 +41,7 @@ exports.contactUs = async( req ,res ) => {
 
         return res.status(200).json({
             status:true,
+            success: true ,
             message:"Your Contact us form is sumbitted"
         })
 

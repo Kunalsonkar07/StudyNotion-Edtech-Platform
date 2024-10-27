@@ -74,8 +74,9 @@ exports.Sendotp = async( req , res ) => {
 
 exports.Signup = async( req , res ) => {
     try {
+
         const { firstName , lastName , accountType , otp  , email 
-                , password , confirmpassword   } = req.body ;
+                , password , confirmPassword   } = req.body ;
 
         // ye check karega nahi keya tha 
         if (
@@ -84,7 +85,7 @@ exports.Signup = async( req , res ) => {
             !email ||
             !accountType ||
             !password ||
-            !confirmpassword ||
+            !confirmPassword ||
             !otp
           ) {
             return res.status(403).send({
@@ -94,7 +95,7 @@ exports.Signup = async( req , res ) => {
           }
 
           console.log( password , typeof(password) );
-          if ( password !== confirmpassword){
+          if ( password != confirmPassword){
               return res.status(401).json({
                   success:false ,
                   message : "Password does not match"

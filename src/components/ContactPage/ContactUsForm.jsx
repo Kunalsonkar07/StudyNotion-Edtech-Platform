@@ -19,13 +19,22 @@ const ContactUsForm = () => {
     
     try {
       setLoading(true)
+      // console.log(data) ;
       const res = await apiconnector(
         "POST",
         contactusEndpoint.CONTACT_US_API,
         data
       )
-      // console.log("Email Res - ", res)
-      toast.success("You will be contacted soon")
+
+      if (!res?.success) {
+        toast.error(res?.message) 
+    //   throw new Error(response?.message);
+      }else {
+
+        // console.log("Email Res - ", res)
+        toast.success("You will be contacted soon")
+      }
+
       setLoading(false)
     } catch (error) {
       console.log("ERROR MESSAGE - ", error.message)

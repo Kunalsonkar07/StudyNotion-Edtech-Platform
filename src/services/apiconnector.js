@@ -25,9 +25,9 @@ export const apiconnector = async ( method , url, bodyData = null,
     if (bodyData ) {
         options.body = bodyData ;
     }
-    // if (bodyData && method !== 'GET') {
-    //     options.body = JSON.stringify(bodyData);
-    // }
+    if (bodyData && method !== 'GET') {
+        options.body = JSON.stringify(bodyData);
+    }
 
     const response = await fetch(url, options);
 
