@@ -23,7 +23,7 @@ const Navbar = () => {
     }
 
     const [ selectLinks , setselectLinks ] = useState([]) ;
-
+    const [ showbar , setshowbar ] = useState(true)
     const fetchSelectLinks = async () => {
         try {
             const result = await apiconnector("GET", categories.CATEGORIES_API);
@@ -38,15 +38,20 @@ const Navbar = () => {
             console.log(error);
         }
     };
-
-
+    
+    const [ data , setdata ] = useState(null) ;
     useEffect( () => {
         fetchSelectLinks() ;
-        // apiconnector();
+            // console.log(user.accountType)
+            if ( user ){
+
+                setdata(JSON.parse(user) ) ;
+                console.log(data?.image) 
+            }
     },[])
 
   return (
-    <div className='text-white max-w-[100%] bg-richblack-800 flex justify-around gap-5 items-center p-3'>
+    <div className='text-white max-w-[100%] md:h-[100px] h-[70px] bg-richblack-800 flex justify-around gap-5 items-center p-3'>
         <div>
             <Link to={"/"}> 
                 <img src={Logo} alt="" className='' />
@@ -99,11 +104,11 @@ const Navbar = () => {
                 ContactUs
             </Link>
         </div>
-        <div className='gap-5 flex '>
+        <div className='relative  flex items-center gap-5 h-full'>
             {
                  user && user.accountType !== "Instructor" && (
                     <Link to={'/dashboard/cart'} className='relative' >
-                        <BsCartDash></BsCartDash>
+                        <BsCartDash className='md:text-2xl text-xl'></BsCartDash>
                         {
                             totalItems > 0 && (
                                 <span>{totalItems}</span>
@@ -132,8 +137,21 @@ const Navbar = () => {
             }
             
             {
-                token !== null && (
-                    <div>dashboard</div>
+                token !== null &&  (
+                    <div className='relative '>
+                        <div onClick={ () => setshowbar(!showbar)} >
+                            <img src={data?.image} alt="img" 
+                                className='  md:h-[50px] h-[25px] rounded-full aspect-square cursor-pointer object-cover'
+                                />
+                        </div>
+                        <div className={`flex flex-col gap-2 font-bold absolute top-full z-10 cursor-pointer right-0 p-2 m-2 border-2 border-richblack-600 bg-richblack-800
+                         text-richblack-25 ${ showbar ? "" : "hidden"}`}>
+                            <Link to={'/dashboard/my-profile'}
+                                onClick={ () => setshowbar(!showbar)}
+                            >Dashboard</Link>
+                            <Link>Logout</Link>
+                        </div>
+                    </div>
                 )
             }
 

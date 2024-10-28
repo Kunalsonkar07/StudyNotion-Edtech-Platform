@@ -2,7 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    user:null ,
+    user: localStorage.getItem("user") ? localStorage.getItem("user") : null  ,
     ACCOUNT_TYPE : "STUDENT"
 }
 
